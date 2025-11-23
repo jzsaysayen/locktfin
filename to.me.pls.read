@@ -5,3 +5,8 @@ issues found: i can access the dashboard without signing in.
 
 as of: november 22, 2025
 to do: PRIO>>>main functions(add order, and order page)
+
+as of november 23, 2025
+finished: add order, order page, settings page, email api integration and tracking page
+issues: no search bar for order page and status tag sectioning
+
