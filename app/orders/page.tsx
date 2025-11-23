@@ -124,7 +124,7 @@ export default async function OrdersPage({
                   {totalOrders === 0 ? "No orders yet" : "No orders found"}
                 </p>
                 <Link
-                  href="/orders/new"
+                  href="/addOrder"
                   className="text-blue-600 hover:text-blue-700 font-medium"
                 >
                   Create your first order
