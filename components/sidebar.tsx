@@ -10,7 +10,7 @@ export default function Sidebar({
   const navigation = [
     { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
     { name: "Orders", href: "/orders", icon: Package },
-    { name: "Add Order", href: "/add-order", icon: Plus },
+    { name: "Add Order", href: "/addOrder", icon: Plus },
     { name: "Settings", href: "/settings", icon: Settings },
   ];
   return (

@@ -1,33 +1,71 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
-  output = "../generated/prisma"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
 
+// Enum must be defined before using it in models
+enum OrderStatus {
+  RECEIVED
+  IN_PROGRESS
+  PICKUP
+  COMPLETE
+}
+
 model Order {
-  id String @id @default(cuid())
-  userId String // Stack Auth User ID
-  trackId String @unique
-  customerName String
+  id             String      @id @default(cuid())
+  userId         String
+  trackId        String      @unique
+  customerName   String
   customerNumber String
-  customerEmail String // email automated messaging api for this
-  price Int
-  status String // received, washing, drying, pickup, complete
-  notes String? //Optional
+  customerEmail  String
+  price          Int
+  status         OrderStatus
+  notes          String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Optional fields for dashboard stats
+  completedWeek  Int?
+  completedMonth Int?
+
+  // One-to-many relation
+  statusHistory OrderStatusHistory[] @relation("OrderToHistory")
+
   @@index([trackId])
   @@index([customerName])
-  @@index([createdAt])
+  @@index([status, createdAt])
+}
+
+model OrderStatusHistory {
+  id        String      @id @default(cuid())
+  orderId   String
+  status    OrderStatus
+  timestamp DateTime    @default(now())
+
+  // Many-to-one relation
+  order Order @relation("OrderToHistory", fields: [orderId], references: [id])
+
+  @@index([orderId, timestamp])
+}
+
+model UserSettings {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  resendApiKey          String?
+  emailFromAddress      String?
+  pickupEmailSubject    String   @default("Your laundry is ready for pickup - Order {trackId}")
+  pickupEmailMessage    String   @default("Hi {customerName},\n\nGreat news! Your laundry order is now ready for pickup.\n\nOrder Details:\n• Tracking ID: {trackId}\n• Total Amount: ₱{price}\n\nPlease bring your tracking ID when picking up your order.\n\nYou can track your order anytime at: {trackUrl}\n\nThank you for choosing LaundryLink!")
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
 }

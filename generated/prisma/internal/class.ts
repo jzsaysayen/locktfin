@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.0",
   "engineVersion": "0c19ccc313cf9911a90d99d2ac2eb0280c76c513",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Order {\n  id             String  @id @default(cuid())\n  userId         String // Stack Auth User ID\n  trackId        String  @unique\n  customerName   String\n  customerNumber String\n  customerEmail  String // email automated messaging api for this\n  price          Int\n  status         String // received, washing, drying, pickup, complete\n  notes          String? //Optional\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([trackId])\n  @@index([customerName])\n  @@index([createdAt])\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\n// Enum must be defined before using it in models\nenum OrderStatus {\n  RECEIVED\n  IN_PROGRESS\n  PICKUP\n  COMPLETE\n}\n\nmodel Order {\n  id             String      @id @default(cuid())\n  userId         String\n  trackId        String      @unique\n  customerName   String\n  customerNumber String\n  customerEmail  String\n  price          Int\n  status         OrderStatus\n  notes          String?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  // Optional fields for dashboard stats\n  completedWeek  Int?\n  completedMonth Int?\n\n  // One-to-many relation\n  statusHistory OrderStatusHistory[] @relation(\"OrderToHistory\")\n\n  @@index([trackId])\n  @@index([customerName])\n  @@index([status, createdAt])\n}\n\nmodel OrderStatusHistory {\n  id        String      @id @default(cuid())\n  orderId   String\n  status    OrderStatus\n  timestamp DateTime    @default(now())\n\n  // Many-to-one relation\n  order Order @relation(\"OrderToHistory\", fields: [orderId], references: [id])\n\n  @@index([orderId, timestamp])\n}\n\nmodel UserSettings {\n  id                 String  @id @default(cuid())\n  userId             String  @unique\n  resendApiKey       String?\n  emailFromAddress   String?\n  pickupEmailSubject String  @default(\"Your laundry is ready for pickup - Order {trackId}\")\n  pickupEmailMessage String  @default(\"Hi {customerName},\\n\\nGreat news! Your laundry order is now ready for pickup.\\n\\nOrder Details:\\n• Tracking ID: {trackId}\\n• Total Amount: ₱{price}\\n\\nPlease bring your tracking ID when picking up your order.\\n\\nYou can track your order anytime at: {trackUrl}\\n\\nThank you for choosing LaundryLink!\")\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([userId])\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"trackId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerEmail\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Order\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"trackId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"customerEmail\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"OrderStatus\"},{\"name\":\"notes\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"completedWeek\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"completedMonth\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"statusHistory\",\"kind\":\"object\",\"type\":\"OrderStatusHistory\",\"relationName\":\"OrderToHistory\"}],\"dbName\":null},\"OrderStatusHistory\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"orderId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"OrderStatus\"},{\"name\":\"timestamp\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"order\",\"kind\":\"object\",\"type\":\"Order\",\"relationName\":\"OrderToHistory\"}],\"dbName\":null},\"UserSettings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"resendApiKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailFromAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"pickupEmailSubject\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"pickupEmailMessage\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -183,6 +183,26 @@ export interface PrismaClient<
     * ```
     */
   get order(): Prisma.OrderDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.orderStatusHistory`: Exposes CRUD operations for the **OrderStatusHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OrderStatusHistories
+    * const orderStatusHistories = await prisma.orderStatusHistory.findMany()
+    * ```
+    */
+  get orderStatusHistory(): Prisma.OrderStatusHistoryDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.userSettings`: Exposes CRUD operations for the **UserSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserSettings
+    * const userSettings = await prisma.userSettings.findMany()
+    * ```
+    */
+  get userSettings(): Prisma.UserSettingsDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

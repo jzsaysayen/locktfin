@@ -40,7 +40,7 @@ export default async function LandingPage() {
               </div>
               <h3 className="text-lg font-semibold text-gray-800">Data-Driven Management</h3>
               <p className="text-center text-gray-600">
-                Monitor essential metrics such as daily revenue, shop traffic, and a five-day predictive revenue forecast to support proactive decision-making and data-driven business planning.
+                Monitor essential metrics such as order completion rates, turnaround times, and workload trends to support proactive decision-making and efficient operations planning.
               </p>
             </div>
             <div className="flex flex-col items-center justify-start px-5 space-y-3 md:w-1/3">

@@ -9,4 +9,6 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/Order'
+export type * from './models/OrderStatusHistory'
+export type * from './models/UserSettings'
 export type * from './commonInputTypes'
