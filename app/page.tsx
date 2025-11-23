@@ -29,7 +29,7 @@ export default async function LandingPage() {
             </Link>
             <Link
               href="/track"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold border border-blue-600 hover:bg-blue-50 transition-colors"
+              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold border border-blue-600 hover:bg-blue-200 transition-colors"
             >
               Track Order
             </Link>
