@@ -1,3 +1,4 @@
+// app/staff/dashboard/page.tsx
 import Sidebar from "@/components/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 import prisma from "@/lib/prisma";
@@ -15,6 +16,7 @@ import {
 // Client Wrappers for charts
 import AnalyticsWrapper from "../../../components/analyticsWrapper";
 import TurnaroundWrapper from "../../../components/turnaroundWrapper";
+import TodaysPieChart from "../../../components/todaysPieChart";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -158,82 +160,245 @@ export default async function DashboardPage() {
     return { date: label, avgHours: avg };
   });
 
+  // Format turnaround time for better readability
+  const formatTurnaroundTime = (hours: number) => {
+    if (hours === 0) return "No data available";
+    
+    const days = Math.floor(hours / 24);
+    const remainingHours = Math.floor(hours % 24);
+    const minutes = Math.floor((hours % 1) * 60);
+    
+    const parts = [];
+    if (days > 0) parts.push(`${days} ${days === 1 ? 'day' : 'days'}`);
+    if (remainingHours > 0) parts.push(`${remainingHours} ${remainingHours === 1 ? 'hour' : 'hours'}`);
+    if (minutes > 0 && days === 0) parts.push(`${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`);
+    
+    return parts.join(', ') || 'Less than a minute';
+  };
+
+  // Today's data for pie chart
+  const todaysData = [
+    { name: 'Received', value: receivedToday, color: '#3B82F6' },
+    { name: 'In Progress', value: inProgressToday, color: '#F59E0B' },
+    { name: 'Pickup', value: pickupToday, color: '#8B5CF6' },
+    { name: 'Completed', value: completedToday, color: '#10B981' },
+  ];
+
+  const totalTodayOrders = receivedToday + inProgressToday + pickupToday + completedToday;
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar currentPath="/staff/dashboard" />
       <main className="ml-64 p-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <p>Welcome back! Overview of your Laundry Management System.</p>
+          <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-1">Welcome back! Here&apos;s what&apos;s happening with your laundry business today.</p>
         </div>
 
-        {/* Today's Statuses */}
-        <div className="grid grid-cols-4 gap-4 mb-8">
-          <div className="p-4 bg-white rounded shadow">
-            <h2 className="text-sm text-gray-500">Received Today</h2>
-            <p className="text-xl font-bold">{receivedToday}</p>
-          </div>
-          <div className="p-4 bg-white rounded shadow">
-            <h2 className="text-sm text-gray-500">In Progress Today</h2>
-            <p className="text-xl font-bold">{inProgressToday}</p>
-          </div>
-          <div className="p-4 bg-white rounded shadow">
-            <h2 className="text-sm text-gray-500">Pickup Today</h2>
-            <p className="text-xl font-bold">{pickupToday}</p>
-          </div>
-          <div className="p-4 bg-white rounded shadow">
-            <h2 className="text-sm text-gray-500">Completed Today</h2>
-            <p className="text-xl font-bold">{completedToday}</p>
+        {/* Today's Overview - Cards + Pie Chart */}
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Today&apos;s Activity</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Pie Chart */}
+            <div className="lg:col-span-1 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h3 className="text-sm font-medium text-gray-700 mb-4">Order Distribution</h3>
+              <TodaysPieChart data={todaysData} total={totalTodayOrders} />
+            </div>
+
+            {/* Stats Cards */}
+            <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg shadow-sm border border-blue-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-blue-600">Received Today</p>
+                    <p className="text-3xl font-bold text-blue-900 mt-2">{receivedToday}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg shadow-sm border border-amber-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-amber-600">In Progress Today</p>
+                    <p className="text-3xl font-bold text-amber-900 mt-2">{inProgressToday}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg shadow-sm border border-purple-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-purple-600">Ready for Pickup</p>
+                    <p className="text-3xl font-bold text-purple-900 mt-2">{pickupToday}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg shadow-sm border border-green-200 p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-green-600">Completed Today</p>
+                    <p className="text-3xl font-bold text-green-900 mt-2">{completedToday}</p>
+                  </div>
+                  <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Backlogs */}
-        <h2 className="text-lg font-bold mb-4">Backlogs</h2>
-        <div className="grid grid-cols-3 gap-4 mb-8">
-          <div className="p-4 bg-yellow-50 rounded shadow">
-            <h2 className="text-sm text-gray-500">Received Backlog</h2>
-            <p className="text-xl font-bold">{backlogsReceived}</p>
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-semibold text-gray-900">Pending Orders</h2>
+            <span className="text-sm text-gray-500">Orders waiting from previous days</span>
           </div>
-          <div className="p-4 bg-yellow-50 rounded shadow">
-            <h2 className="text-sm text-gray-500">In Progress Backlog</h2>
-            <p className="text-xl font-bold">{backlogsInProgress}</p>
-          </div>
-          <div className="p-4 bg-yellow-50 rounded shadow">
-            <h2 className="text-sm text-gray-500">Pickup Backlog</h2>
-            <p className="text-xl font-bold">{backlogsPickup}</p>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-gray-600">Received Backlog</p>
+                {backlogsReceived > 0 && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                    Needs attention
+                  </span>
+                )}
+              </div>
+              <p className="text-3xl font-bold text-gray-900">{backlogsReceived}</p>
+              <p className="text-xs text-gray-500 mt-1">Orders waiting to be processed</p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-gray-600">In Progress Backlog</p>
+                {backlogsInProgress > 0 && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                    In process
+                  </span>
+                )}
+              </div>
+              <p className="text-3xl font-bold text-gray-900">{backlogsInProgress}</p>
+              <p className="text-xs text-gray-500 mt-1">Orders currently being cleaned</p>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-gray-600">Pickup Backlog</p>
+                {backlogsPickup > 0 && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    Ready
+                  </span>
+                )}
+              </div>
+              <p className="text-3xl font-bold text-gray-900">{backlogsPickup}</p>
+              <p className="text-xs text-gray-500 mt-1">Orders ready for customer pickup</p>
+            </div>
           </div>
         </div>
 
         {/* Completed Week/Month */}
-        <h2 className="text-lg font-bold mb-4">Completed</h2>
-        <div className="grid grid-cols-2 gap-4 mb-8">
-          <div className="p-4 bg-green-50 rounded shadow">
-            <h2 className="text-sm text-gray-500">This Week</h2>
-            <p className="text-xl font-bold">{completedThisWeek}</p>
-          </div>
-          <div className="p-4 bg-green-50 rounded shadow">
-            <h2 className="text-sm text-gray-500">This Month</h2>
-            <p className="text-xl font-bold">{completedThisMonth}</p>
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Completed Orders</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg shadow-sm border border-emerald-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-emerald-600">This Week</p>
+                  <p className="text-4xl font-bold text-emerald-900 mt-2">{completedThisWeek}</p>
+                  <p className="text-xs text-emerald-600 mt-1">Total orders completed</p>
+                </div>
+                <div className="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg shadow-sm border border-teal-200 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-teal-600">This Month</p>
+                  <p className="text-4xl font-bold text-teal-900 mt-2">{completedThisMonth}</p>
+                  <p className="text-xs text-teal-600 mt-1">Total orders completed</p>
+                </div>
+                <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Analytics: Last 7 Days Orders */}
-        <h2 className="text-lg font-bold mb-4">Last 7 Days Orders</h2>
-        <div className="p-4 bg-white rounded shadow mb-8">
-          <AnalyticsWrapper data={analyticsData} />
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">7-Day Order Trends</h2>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <p className="text-sm text-gray-600 mb-4">Track how your orders flow through different stages over the past week</p>
+            <AnalyticsWrapper data={analyticsData} />
+          </div>
         </div>
 
         {/* Average Turnaround */}
-        <h2 className="text-lg font-bold mb-4">Average Turnaround Time</h2>
-        <div className="p-4 bg-white rounded shadow mb-8">
-          <p className="text-xl">{avgTurnaround.toFixed(2)} hours (RECEIVED → COMPLETE)</p>
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Service Speed</h2>
+          <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg shadow-sm border border-indigo-200 p-8">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-medium text-indigo-600 mb-2">Average Turnaround Time</p>
+                <p className="text-4xl font-bold text-indigo-900 mb-3">{formatTurnaroundTime(avgTurnaround)}</p>
+                <div className="bg-white/60 rounded-lg p-4 max-w-xl">
+                  <p className="text-sm text-indigo-900">
+                    <span className="font-semibold">What this means:</span> This is the average time it takes for an order to go from &quot;Received&quot; to &quot;Complete&quot;. 
+                    {avgTurnaround > 0 && (
+                      <span className="block mt-2">
+                        {avgTurnaround < 24 
+                          ? "Great job! You're completing orders within a day." 
+                          : avgTurnaround < 48 
+                          ? "You're completing orders in about 1-2 days." 
+                          : "Consider ways to speed up your process for faster customer service."}
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+              <div className="w-20 h-20 bg-indigo-500 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Average Turnaround Trend */}
-        <h2 className="text-lg font-bold mb-4">Average Turnaround Trend (Last 7 Days)</h2>
-        <div className="p-4 bg-white rounded shadow mb-8">
-          <TurnaroundWrapper data={avgTurnaroundData} />
+        <div className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">Turnaround Time Trend</h2>
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <p className="text-sm text-gray-600 mb-4">See how your service speed changes day by day. Lower is better!</p>
+            <TurnaroundWrapper data={avgTurnaroundData} />
+          </div>
         </div>
       </main>
     </div>
