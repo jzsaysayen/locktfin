@@ -2,6 +2,7 @@
 import Sidebar from "@/components/sidebar";
 import { getCurrentUser } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import Link from "next/link";
 import {
   startOfDay,
   endOfDay,
@@ -59,6 +60,11 @@ export default async function DashboardPage() {
     
     // Get ALL completed orders for turnaround calculations
     completedOrders,
+
+    // Reservation alerts
+    pendingReservationsCount,
+    todayReservationsCount,
+    shopSettings,
   ] = await Promise.all([
     // Today's Statuses
     prisma.orderStatusHistory.count({
@@ -107,7 +113,26 @@ export default async function DashboardPage() {
       where: { userId, status: "COMPLETE" },
       select: { createdAt: true, updatedAt: true },
     }),
+
+    // Reservation alerts
+    prisma.reservation.count({
+      where: { status: 'PENDING' },
+    }),
+    prisma.reservation.count({
+      where: {
+        dropoffDate: {
+          gte: todayStart,
+          lte: todayEnd,
+        },
+        status: { in: ['PENDING', 'CONFIRMED'] },
+      },
+    }),
+    prisma.shopSettings.findUnique({
+      where: { id: 'shop-settings' },
+    }),
   ]);
+
+  const acceptingReservations = shopSettings?.acceptingReservations ?? true;
 
   // ============================================
   // PROCESS ANALYTICS DATA (in memory, not DB)
@@ -195,6 +220,92 @@ export default async function DashboardPage() {
           <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-gray-600 mt-1">Welcome back! Here&apos;s what&apos;s happening with your laundry business today.</p>
         </div>
+
+        {/* Important Alerts Section */}
+        {(pendingReservationsCount > 0 || todayReservationsCount > 0 || !acceptingReservations) && (
+          <div className="mb-8 space-y-3">
+            {/* Pending Reservations Alert */}
+            {pendingReservationsCount > 0 && (
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-yellow-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p className="text-sm font-medium text-yellow-800">
+                        {pendingReservationsCount} pending reservation{pendingReservationsCount > 1 ? 's' : ''} awaiting confirmation
+                      </p>
+                      <p className="text-xs text-yellow-700 mt-0.5">
+                        Review and confirm customer reservations to ensure smooth operations
+                      </p>
+                    </div>
+                  </div>
+                  <Link 
+                    href="/staff/reservations?tab=pending"
+                    className="px-4 py-2 bg-yellow-600 text-white rounded-lg text-sm font-medium hover:bg-yellow-700 transition-colors whitespace-nowrap ml-4"
+                  >
+                    Review Now
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {/* Today's Reservations */}
+            {todayReservationsCount > 0 && (
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-blue-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <div>
+                      <p className="text-sm font-medium text-blue-800">
+                        {todayReservationsCount} customer{todayReservationsCount > 1 ? 's' : ''} scheduled to drop off today
+                      </p>
+                      <p className="text-xs text-blue-700 mt-0.5">
+                        Be prepared for incoming laundry orders
+                      </p>
+                    </div>
+                  </div>
+                  <Link 
+                    href="/staff/reservations"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors whitespace-nowrap ml-4"
+                  >
+                    View Schedule
+                  </Link>
+                </div>
+              </div>
+            )}
+
+            {/* Shop Closed Notice */}
+            {!acceptingReservations && (
+              <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-red-600 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div>
+                      <p className="text-sm font-medium text-red-800">
+                        Your shop is currently NOT accepting reservations
+                      </p>
+                      <p className="text-xs text-red-700 mt-0.5">
+                        Customers cannot book new drop-off appointments
+                      </p>
+                    </div>
+                  </div>
+                  <Link 
+                    href="/staff/reservations"
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition-colors whitespace-nowrap ml-4"
+                  >
+                    Manage Settings
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Today's Overview - Cards + Pie Chart */}
         <div className="mb-8">
