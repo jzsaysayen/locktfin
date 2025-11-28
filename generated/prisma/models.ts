@@ -10,5 +10,7 @@
  */
 export type * from './models/Order'
 export type * from './models/OrderStatusHistory'
+export type * from './models/Reservation'
 export type * from './models/UserSettings'
+export type * from './models/ShopSettings'
 export type * from './commonInputTypes'

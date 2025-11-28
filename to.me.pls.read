@@ -1,12 +1,26 @@
 init.
 as of: november 21, 2025
 finished: login. landing page, sidepar(partly finished), database(i think is done. seeding part had issue)
-issues found: i can access the dashboard without signing in.
+issues found: i can access the dashboard without signing in. SOLVED***
 
 as of: november 22, 2025
-to do: PRIO>>>main functions(add order, and order page)
+to do: PRIO>>>main functions(add order, and order page) DONE***
 
 as of november 23, 2025
 finished: add order, order page, settings page, email api integration and tracking page
-issues: no search bar for order page and status tag sectioning
+issues: no search bar for order page and status tag sectioning 
 
+as of november 25, 2025
+consultation: add more features
+reservation page (viewed in the dashboard then staff choose if add to pending),
+view pending orders(customer side) (redo the landing page)
+landing page is the name of the business the add the reservation list and ongoing orders...
+
+added: login access restriction by adding email access to env. middleware helper
+restructured the project structure.
+******Restructure whole code after cap1******
+
+as of november 26, 2025
+added: reservation and pending reservations. also added a stopper for reserve in staff side.
+TODO: add loading for reservation page and redo loading for orders page
+redo the ui also for landing page and 3 pages for customer

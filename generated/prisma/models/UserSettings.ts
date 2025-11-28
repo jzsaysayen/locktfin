@@ -31,6 +31,8 @@ export type UserSettingsMinAggregateOutputType = {
   emailFromAddress: string | null
   pickupEmailSubject: string | null
   pickupEmailMessage: string | null
+  reservationConfirmSubject: string | null
+  reservationConfirmMessage: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +44,8 @@ export type UserSettingsMaxAggregateOutputType = {
   emailFromAddress: string | null
   pickupEmailSubject: string | null
   pickupEmailMessage: string | null
+  reservationConfirmSubject: string | null
+  reservationConfirmMessage: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +57,8 @@ export type UserSettingsCountAggregateOutputType = {
   emailFromAddress: number
   pickupEmailSubject: number
   pickupEmailMessage: number
+  reservationConfirmSubject: number
+  reservationConfirmMessage: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -66,6 +72,8 @@ export type UserSettingsMinAggregateInputType = {
   emailFromAddress?: true
   pickupEmailSubject?: true
   pickupEmailMessage?: true
+  reservationConfirmSubject?: true
+  reservationConfirmMessage?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +85,8 @@ export type UserSettingsMaxAggregateInputType = {
   emailFromAddress?: true
   pickupEmailSubject?: true
   pickupEmailMessage?: true
+  reservationConfirmSubject?: true
+  reservationConfirmMessage?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +98,8 @@ export type UserSettingsCountAggregateInputType = {
   emailFromAddress?: true
   pickupEmailSubject?: true
   pickupEmailMessage?: true
+  reservationConfirmSubject?: true
+  reservationConfirmMessage?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -172,6 +184,8 @@ export type UserSettingsGroupByOutputType = {
   emailFromAddress: string | null
   pickupEmailSubject: string
   pickupEmailMessage: string
+  reservationConfirmSubject: string
+  reservationConfirmMessage: string
   createdAt: Date
   updatedAt: Date
   _count: UserSettingsCountAggregateOutputType | null
@@ -204,6 +218,8 @@ export type UserSettingsWhereInput = {
   emailFromAddress?: Prisma.StringNullableFilter<"UserSettings"> | string | null
   pickupEmailSubject?: Prisma.StringFilter<"UserSettings"> | string
   pickupEmailMessage?: Prisma.StringFilter<"UserSettings"> | string
+  reservationConfirmSubject?: Prisma.StringFilter<"UserSettings"> | string
+  reservationConfirmMessage?: Prisma.StringFilter<"UserSettings"> | string
   createdAt?: Prisma.DateTimeFilter<"UserSettings"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserSettings"> | Date | string
 }
@@ -215,6 +231,8 @@ export type UserSettingsOrderByWithRelationInput = {
   emailFromAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   pickupEmailSubject?: Prisma.SortOrder
   pickupEmailMessage?: Prisma.SortOrder
+  reservationConfirmSubject?: Prisma.SortOrder
+  reservationConfirmMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -229,6 +247,8 @@ export type UserSettingsWhereUniqueInput = Prisma.AtLeast<{
   emailFromAddress?: Prisma.StringNullableFilter<"UserSettings"> | string | null
   pickupEmailSubject?: Prisma.StringFilter<"UserSettings"> | string
   pickupEmailMessage?: Prisma.StringFilter<"UserSettings"> | string
+  reservationConfirmSubject?: Prisma.StringFilter<"UserSettings"> | string
+  reservationConfirmMessage?: Prisma.StringFilter<"UserSettings"> | string
   createdAt?: Prisma.DateTimeFilter<"UserSettings"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"UserSettings"> | Date | string
 }, "id" | "userId">
@@ -240,6 +260,8 @@ export type UserSettingsOrderByWithAggregationInput = {
   emailFromAddress?: Prisma.SortOrderInput | Prisma.SortOrder
   pickupEmailSubject?: Prisma.SortOrder
   pickupEmailMessage?: Prisma.SortOrder
+  reservationConfirmSubject?: Prisma.SortOrder
+  reservationConfirmMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserSettingsCountOrderByAggregateInput
@@ -257,6 +279,8 @@ export type UserSettingsScalarWhereWithAggregatesInput = {
   emailFromAddress?: Prisma.StringNullableWithAggregatesFilter<"UserSettings"> | string | null
   pickupEmailSubject?: Prisma.StringWithAggregatesFilter<"UserSettings"> | string
   pickupEmailMessage?: Prisma.StringWithAggregatesFilter<"UserSettings"> | string
+  reservationConfirmSubject?: Prisma.StringWithAggregatesFilter<"UserSettings"> | string
+  reservationConfirmMessage?: Prisma.StringWithAggregatesFilter<"UserSettings"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UserSettings"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UserSettings"> | Date | string
 }
@@ -268,6 +292,8 @@ export type UserSettingsCreateInput = {
   emailFromAddress?: string | null
   pickupEmailSubject?: string
   pickupEmailMessage?: string
+  reservationConfirmSubject?: string
+  reservationConfirmMessage?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -279,6 +305,8 @@ export type UserSettingsUncheckedCreateInput = {
   emailFromAddress?: string | null
   pickupEmailSubject?: string
   pickupEmailMessage?: string
+  reservationConfirmSubject?: string
+  reservationConfirmMessage?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -290,6 +318,8 @@ export type UserSettingsUpdateInput = {
   emailFromAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pickupEmailSubject?: Prisma.StringFieldUpdateOperationsInput | string
   pickupEmailMessage?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmSubject?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmMessage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -301,6 +331,8 @@ export type UserSettingsUncheckedUpdateInput = {
   emailFromAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pickupEmailSubject?: Prisma.StringFieldUpdateOperationsInput | string
   pickupEmailMessage?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmSubject?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmMessage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -312,6 +344,8 @@ export type UserSettingsCreateManyInput = {
   emailFromAddress?: string | null
   pickupEmailSubject?: string
   pickupEmailMessage?: string
+  reservationConfirmSubject?: string
+  reservationConfirmMessage?: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -323,6 +357,8 @@ export type UserSettingsUpdateManyMutationInput = {
   emailFromAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pickupEmailSubject?: Prisma.StringFieldUpdateOperationsInput | string
   pickupEmailMessage?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmSubject?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmMessage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -334,6 +370,8 @@ export type UserSettingsUncheckedUpdateManyInput = {
   emailFromAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pickupEmailSubject?: Prisma.StringFieldUpdateOperationsInput | string
   pickupEmailMessage?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmSubject?: Prisma.StringFieldUpdateOperationsInput | string
+  reservationConfirmMessage?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -345,6 +383,8 @@ export type UserSettingsCountOrderByAggregateInput = {
   emailFromAddress?: Prisma.SortOrder
   pickupEmailSubject?: Prisma.SortOrder
   pickupEmailMessage?: Prisma.SortOrder
+  reservationConfirmSubject?: Prisma.SortOrder
+  reservationConfirmMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -356,6 +396,8 @@ export type UserSettingsMaxOrderByAggregateInput = {
   emailFromAddress?: Prisma.SortOrder
   pickupEmailSubject?: Prisma.SortOrder
   pickupEmailMessage?: Prisma.SortOrder
+  reservationConfirmSubject?: Prisma.SortOrder
+  reservationConfirmMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -367,6 +409,8 @@ export type UserSettingsMinOrderByAggregateInput = {
   emailFromAddress?: Prisma.SortOrder
   pickupEmailSubject?: Prisma.SortOrder
   pickupEmailMessage?: Prisma.SortOrder
+  reservationConfirmSubject?: Prisma.SortOrder
+  reservationConfirmMessage?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -380,6 +424,8 @@ export type UserSettingsSelect<ExtArgs extends runtime.Types.Extensions.Internal
   emailFromAddress?: boolean
   pickupEmailSubject?: boolean
   pickupEmailMessage?: boolean
+  reservationConfirmSubject?: boolean
+  reservationConfirmMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["userSettings"]>
@@ -391,6 +437,8 @@ export type UserSettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   emailFromAddress?: boolean
   pickupEmailSubject?: boolean
   pickupEmailMessage?: boolean
+  reservationConfirmSubject?: boolean
+  reservationConfirmMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["userSettings"]>
@@ -402,6 +450,8 @@ export type UserSettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   emailFromAddress?: boolean
   pickupEmailSubject?: boolean
   pickupEmailMessage?: boolean
+  reservationConfirmSubject?: boolean
+  reservationConfirmMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["userSettings"]>
@@ -413,11 +463,13 @@ export type UserSettingsSelectScalar = {
   emailFromAddress?: boolean
   pickupEmailSubject?: boolean
   pickupEmailMessage?: boolean
+  reservationConfirmSubject?: boolean
+  reservationConfirmMessage?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "resendApiKey" | "emailFromAddress" | "pickupEmailSubject" | "pickupEmailMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["userSettings"]>
+export type UserSettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "resendApiKey" | "emailFromAddress" | "pickupEmailSubject" | "pickupEmailMessage" | "reservationConfirmSubject" | "reservationConfirmMessage" | "createdAt" | "updatedAt", ExtArgs["result"]["userSettings"]>
 
 export type $UserSettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "UserSettings"
@@ -429,6 +481,8 @@ export type $UserSettingsPayload<ExtArgs extends runtime.Types.Extensions.Intern
     emailFromAddress: string | null
     pickupEmailSubject: string
     pickupEmailMessage: string
+    reservationConfirmSubject: string
+    reservationConfirmMessage: string
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["userSettings"]>
@@ -860,6 +914,8 @@ export interface UserSettingsFieldRefs {
   readonly emailFromAddress: Prisma.FieldRef<"UserSettings", 'String'>
   readonly pickupEmailSubject: Prisma.FieldRef<"UserSettings", 'String'>
   readonly pickupEmailMessage: Prisma.FieldRef<"UserSettings", 'String'>
+  readonly reservationConfirmSubject: Prisma.FieldRef<"UserSettings", 'String'>
+  readonly reservationConfirmMessage: Prisma.FieldRef<"UserSettings", 'String'>
   readonly createdAt: Prisma.FieldRef<"UserSettings", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"UserSettings", 'DateTime'>
 }

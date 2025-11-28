@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Order: 'Order',
   OrderStatusHistory: 'OrderStatusHistory',
-  UserSettings: 'UserSettings'
+  Reservation: 'Reservation',
+  UserSettings: 'UserSettings',
+  ShopSettings: 'ShopSettings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "order" | "orderStatusHistory" | "userSettings"
+    modelProps: "order" | "orderStatusHistory" | "reservation" | "userSettings" | "shopSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -554,6 +556,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Reservation: {
+      payload: Prisma.$ReservationPayload<ExtArgs>
+      fields: Prisma.ReservationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReservationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReservationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>
+        }
+        findFirst: {
+          args: Prisma.ReservationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReservationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>
+        }
+        findMany: {
+          args: Prisma.ReservationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>[]
+        }
+        create: {
+          args: Prisma.ReservationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>
+        }
+        createMany: {
+          args: Prisma.ReservationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReservationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>[]
+        }
+        delete: {
+          args: Prisma.ReservationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>
+        }
+        update: {
+          args: Prisma.ReservationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReservationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReservationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReservationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReservationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationPayload>
+        }
+        aggregate: {
+          args: Prisma.ReservationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReservation>
+        }
+        groupBy: {
+          args: Prisma.ReservationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReservationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReservationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReservationCountAggregateOutputType> | number
+        }
+      }
+    }
     UserSettings: {
       payload: Prisma.$UserSettingsPayload<ExtArgs>
       fields: Prisma.UserSettingsFieldRefs
@@ -628,6 +704,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ShopSettings: {
+      payload: Prisma.$ShopSettingsPayload<ExtArgs>
+      fields: Prisma.ShopSettingsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ShopSettingsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ShopSettingsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>
+        }
+        findFirst: {
+          args: Prisma.ShopSettingsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ShopSettingsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>
+        }
+        findMany: {
+          args: Prisma.ShopSettingsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>[]
+        }
+        create: {
+          args: Prisma.ShopSettingsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>
+        }
+        createMany: {
+          args: Prisma.ShopSettingsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ShopSettingsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>[]
+        }
+        delete: {
+          args: Prisma.ShopSettingsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>
+        }
+        update: {
+          args: Prisma.ShopSettingsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>
+        }
+        deleteMany: {
+          args: Prisma.ShopSettingsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ShopSettingsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ShopSettingsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>[]
+        }
+        upsert: {
+          args: Prisma.ShopSettingsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopSettingsPayload>
+        }
+        aggregate: {
+          args: Prisma.ShopSettingsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateShopSettings>
+        }
+        groupBy: {
+          args: Prisma.ShopSettingsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShopSettingsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ShopSettingsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ShopSettingsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -696,6 +846,24 @@ export const OrderStatusHistoryScalarFieldEnum = {
 export type OrderStatusHistoryScalarFieldEnum = (typeof OrderStatusHistoryScalarFieldEnum)[keyof typeof OrderStatusHistoryScalarFieldEnum]
 
 
+export const ReservationScalarFieldEnum = {
+  id: 'id',
+  reservationId: 'reservationId',
+  customerName: 'customerName',
+  customerNumber: 'customerNumber',
+  customerEmail: 'customerEmail',
+  dropoffDate: 'dropoffDate',
+  dropoffTime: 'dropoffTime',
+  specialInstructions: 'specialInstructions',
+  status: 'status',
+  orderId: 'orderId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReservationScalarFieldEnum = (typeof ReservationScalarFieldEnum)[keyof typeof ReservationScalarFieldEnum]
+
+
 export const UserSettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -703,11 +871,24 @@ export const UserSettingsScalarFieldEnum = {
   emailFromAddress: 'emailFromAddress',
   pickupEmailSubject: 'pickupEmailSubject',
   pickupEmailMessage: 'pickupEmailMessage',
+  reservationConfirmSubject: 'reservationConfirmSubject',
+  reservationConfirmMessage: 'reservationConfirmMessage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserSettingsScalarFieldEnum = (typeof UserSettingsScalarFieldEnum)[keyof typeof UserSettingsScalarFieldEnum]
+
+
+export const ShopSettingsScalarFieldEnum = {
+  id: 'id',
+  acceptingReservations: 'acceptingReservations',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShopSettingsScalarFieldEnum = (typeof ShopSettingsScalarFieldEnum)[keyof typeof ShopSettingsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -793,6 +974,27 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ReservationStatus'
+ */
+export type EnumReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReservationStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ReservationStatus[]'
+ */
+export type ListEnumReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReservationStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -890,7 +1092,9 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   order?: Prisma.OrderOmit
   orderStatusHistory?: Prisma.OrderStatusHistoryOmit
+  reservation?: Prisma.ReservationOmit
   userSettings?: Prisma.UserSettingsOmit
+  shopSettings?: Prisma.ShopSettingsOmit
 }
 
 /* Types for Logging */

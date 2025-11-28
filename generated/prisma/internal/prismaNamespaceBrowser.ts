@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Order: 'Order',
   OrderStatusHistory: 'OrderStatusHistory',
-  UserSettings: 'UserSettings'
+  Reservation: 'Reservation',
+  UserSettings: 'UserSettings',
+  ShopSettings: 'ShopSettings'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -101,6 +103,24 @@ export const OrderStatusHistoryScalarFieldEnum = {
 export type OrderStatusHistoryScalarFieldEnum = (typeof OrderStatusHistoryScalarFieldEnum)[keyof typeof OrderStatusHistoryScalarFieldEnum]
 
 
+export const ReservationScalarFieldEnum = {
+  id: 'id',
+  reservationId: 'reservationId',
+  customerName: 'customerName',
+  customerNumber: 'customerNumber',
+  customerEmail: 'customerEmail',
+  dropoffDate: 'dropoffDate',
+  dropoffTime: 'dropoffTime',
+  specialInstructions: 'specialInstructions',
+  status: 'status',
+  orderId: 'orderId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReservationScalarFieldEnum = (typeof ReservationScalarFieldEnum)[keyof typeof ReservationScalarFieldEnum]
+
+
 export const UserSettingsScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -108,11 +128,24 @@ export const UserSettingsScalarFieldEnum = {
   emailFromAddress: 'emailFromAddress',
   pickupEmailSubject: 'pickupEmailSubject',
   pickupEmailMessage: 'pickupEmailMessage',
+  reservationConfirmSubject: 'reservationConfirmSubject',
+  reservationConfirmMessage: 'reservationConfirmMessage',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type UserSettingsScalarFieldEnum = (typeof UserSettingsScalarFieldEnum)[keyof typeof UserSettingsScalarFieldEnum]
+
+
+export const ShopSettingsScalarFieldEnum = {
+  id: 'id',
+  acceptingReservations: 'acceptingReservations',
+  updatedBy: 'updatedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ShopSettingsScalarFieldEnum = (typeof ShopSettingsScalarFieldEnum)[keyof typeof ShopSettingsScalarFieldEnum]
 
 
 export const SortOrder = {

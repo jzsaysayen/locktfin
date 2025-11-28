@@ -5,61 +5,99 @@ import { redirect } from "next/navigation";
 export default async function LandingPage() {
   const user = await stackServerApp.getUser();
   if (user) {
-    redirect("/dashboard");
+    redirect("/staff/dashboard");
   }
+  
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-10 to-blue-100 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+      {/* Header with Staff Login */}
+      <header className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          <div className="text-2xl font-bold text-gray-900">
+            NorthEnd
+          </div>
+          <Link
+            href="/staff/login"
+            className="bg-gray-800 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-900 transition-colors text-sm"
+          >
+            Staff Login
+          </Link>
+        </div>
+      </header>
+
+      {/* Main Content */}
       <div className="container mx-auto px-4 py-16">
-        <div className="text-center">
-          <h1 className="text-4xl font-extrabold text-gray-900 mb-3">
-            LaundryLink
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-extrabold text-gray-900 mb-3">
+            NorthEnd Laundry
           </h1>
-          <h2 className="text-4xl font-extrabold text-blue-600 mb-6">
+          <h2 className="text-3xl font-ebold text-blue-600 mb-6">
             Your laundry, simplified.
           </h2>
-          <p className="text-center text-gray-600 mb-6">
-            Streamline your laundry business with LaundryLink - the all-in-one
+          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+            Request for laundry and track your laundry orders with ease using our user-friendly platform.
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              href="/login"
-              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/track"
-              className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold border border-blue-600 hover:bg-blue-200 transition-colors"
-            >
-              Track Order
-            </Link>
-          </div>
-          <div className="flex flex-col py-10 space-x-0 space-y-10 md:space-y-0 md:space-x-5 md:flex-row">
-            <div className="flex flex-col items-center justify-start px-5 space-y-3 md:w-1/3">
-              <div className="flex items-center justify-center w-16 h-16 bg-gray-600 rounded-full">
+        </div>
+
+        {/* Action Cards */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {/* Make a Reservation */}
+          <Link href="/customer/reservation" className="group">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:bg-blue-200 transition-colors">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800">Data-Driven Management</h3>
-              <p className="text-center text-gray-600">
-                Monitor essential metrics such as order completion rates, turnaround times, and workload trends to support proactive decision-making and efficient operations planning.
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">
+                Make a Reservation
+              </h3>
+              <p className="text-gray-600 text-center">
+                Schedule your laundry pickup and delivery at your convenience
               </p>
             </div>
-            <div className="flex flex-col items-center justify-start px-5 space-y-3 md:w-1/3">
-              <div className="flex items-center justify-center w-16 h-16 bg-gray-600 rounded-full">
+          </Link>
+
+          {/* View Pending Reservations */}
+          <Link href="/customer/pending-reservations" className="group">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:bg-amber-200 transition-colors">
+                <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800">Streamlined Productivity</h3>
-              <p className="text-center text-gray-600">
-                Utilize our intuitive management system to keep your staff productive and allow customers to handle their own tracking, reducing manual effort and errors.
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">
+                Pending Reservations
+              </h3>
+              <p className="text-gray-600 text-center">
+                View and manage your upcoming laundry reservations
               </p>
             </div>
-            <div className="flex flex-col items-center justify-start px-5 space-y-3 md:w-1/3">
-              <div className="flex items-center justify-center w-16 h-16 bg-gray-600 rounded-full">
+          </Link>
+
+          {/* Track Order */}
+          <Link href="/track" className="group">
+            <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 mx-auto group-hover:bg-green-200 transition-colors">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800">Total Operational Control</h3>
-              <p className="text-center text-gray-600">
-                Take full control of your entire laundry operation with a single platform designed to centralize and optimize every aspect of your business.
+              <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">
+                Track Your Order
+              </h3>
+              <p className="text-gray-600 text-center">
+                Check the real-time status of your laundry order
               </p>
             </div>
-          </div>
+          </Link>
+        </div>
+
+        {/* Additional Info */}
+        <div className="mt-16 text-center">
+          <p className="text-gray-500 text-sm">
+            Need help? Contact us at <span className="font-semibold text-blue-600">support@testinglaundry.com</span>
+          </p>
         </div>
       </div>
     </div>

@@ -375,7 +375,7 @@ export type OrderCreateInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
-  price: number
+  price?: number
   status: $Enums.OrderStatus
   notes?: string | null
   createdAt?: Date | string
@@ -392,7 +392,7 @@ export type OrderUncheckedCreateInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
-  price: number
+  price?: number
   status: $Enums.OrderStatus
   notes?: string | null
   createdAt?: Date | string
@@ -443,7 +443,7 @@ export type OrderCreateManyInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
-  price: number
+  price?: number
   status: $Enums.OrderStatus
   notes?: string | null
   createdAt?: Date | string
@@ -602,7 +602,7 @@ export type OrderCreateWithoutStatusHistoryInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
-  price: number
+  price?: number
   status: $Enums.OrderStatus
   notes?: string | null
   createdAt?: Date | string
@@ -618,7 +618,7 @@ export type OrderUncheckedCreateWithoutStatusHistoryInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
-  price: number
+  price?: number
   status: $Enums.OrderStatus
   notes?: string | null
   createdAt?: Date | string

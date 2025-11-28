@@ -50,7 +50,17 @@ export type Order = Prisma.OrderModel
  */
 export type OrderStatusHistory = Prisma.OrderStatusHistoryModel
 /**
+ * Model Reservation
+ * 
+ */
+export type Reservation = Prisma.ReservationModel
+/**
  * Model UserSettings
  * 
  */
 export type UserSettings = Prisma.UserSettingsModel
+/**
+ * Model ShopSettings
+ * 
+ */
+export type ShopSettings = Prisma.ShopSettingsModel

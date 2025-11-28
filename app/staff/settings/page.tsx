@@ -46,7 +46,7 @@ Thank you for choosing LaundryLink!`,
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Sidebar currentPath="/settings" />
+      <Sidebar currentPath="/staff/settings" />
       <main className="ml-64 p-8">
         <div className="mb-8">
           <h1 className="text-2xl font-semibold text-gray-900">Settings</h1>

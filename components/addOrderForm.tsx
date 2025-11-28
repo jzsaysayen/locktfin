@@ -70,7 +70,7 @@ export default function AddOrderForm() {
 
       // Redirect to orders page after 2 seconds
       setTimeout(() => {
-        router.push('/orders');
+        router.push('/staff/orders');
       }, 2000);
     } catch (err) {
       console.error('Error creating order:', err);
@@ -187,7 +187,7 @@ export default function AddOrderForm() {
         </button>
         <button
           type="button"
-          onClick={() => router.push('/orders')}
+          onClick={() => router.push('/staff/orders')}
           className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
         >
           Cancel

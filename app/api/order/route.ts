@@ -3,6 +3,7 @@ import { getCurrentUser } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { Resend } from 'resend';
 import QRCode from 'qrcode';
+import { generateTrackId } from '@/lib/idGenerator';
 
 // Import OrderStatus type
 type OrderStatus = 'RECEIVED' | 'IN_PROGRESS' | 'PICKUP' | 'COMPLETE';
@@ -23,13 +24,6 @@ type UserSettings = {
   pickupEmailSubject: string;
   pickupEmailMessage: string;
 };
-
-// Helper function to generate tracking ID
-function generateTrackId(): string {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 6);
-  return `LL-${timestamp}-${random}`.toUpperCase();
-}
 
 // Helper function to send email with QR code
 async function sendOrderEmail(

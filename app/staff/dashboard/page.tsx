@@ -13,8 +13,8 @@ import {
 } from "date-fns";
 
 // Client Wrappers for charts
-import AnalyticsWrapper from "../../components/analyticsWrapper";
-import TurnaroundWrapper from "../../components/turnaroundWrapper";
+import AnalyticsWrapper from "../../../components/analyticsWrapper";
+import TurnaroundWrapper from "../../../components/turnaroundWrapper";
 
 export default async function DashboardPage() {
   const user = await getCurrentUser();
@@ -160,7 +160,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Sidebar currentPath="/dashboard" />
+      <Sidebar currentPath="/staff/dashboard" />
       <main className="ml-64 p-8">
         {/* Header */}
         <div className="mb-8">

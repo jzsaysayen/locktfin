@@ -18,6 +18,13 @@ enum OrderStatus {
   COMPLETE
 }
 
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
 model Order {
   id             String      @id @default(cuid())
   userId         String
@@ -25,7 +32,7 @@ model Order {
   customerName   String
   customerNumber String
   customerEmail  String
-  price          Int
+  price          Int         @default(0) // Set when laundry is done and weighed
   status         OrderStatus
   notes          String?
 
@@ -56,6 +63,32 @@ model OrderStatusHistory {
   @@index([orderId, timestamp])
 }
 
+model Reservation {
+  id              String            @id @default(cuid())
+  reservationId   String            @unique // e.g., RES-XXXXXX for tracking
+  customerName    String
+  customerNumber  String
+  customerEmail   String
+  
+  // Reservation details (drop-off only)
+  dropoffDate     DateTime          // Scheduled drop-off date
+  dropoffTime     String            // e.g., "9:00 AM - 10:00 AM"
+  specialInstructions String?       // Any special requests or notes
+  
+  status          ReservationStatus @default(PENDING)
+  
+  // Optional: Link to order once laundry is dropped off and weighed
+  orderId         String?           @unique
+  
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  @@index([reservationId])
+  @@index([customerEmail])
+  @@index([status, dropoffDate])
+  @@index([dropoffDate])
+}
+
 model UserSettings {
   id                    String   @id @default(cuid())
   userId                String   @unique
@@ -64,8 +97,22 @@ model UserSettings {
   pickupEmailSubject    String   @default("Your laundry is ready for pickup - Order {trackId}")
   pickupEmailMessage    String   @default("Hi {customerName},\n\nGreat news! Your laundry order is now ready for pickup.\n\nOrder Details:\n• Tracking ID: {trackId}\n• Total Amount: ₱{price}\n\nPlease bring your tracking ID when picking up your order.\n\nYou can track your order anytime at: {trackUrl}\n\nThank you for choosing LaundryLink!")
   
+  // Reservation email settings
+  reservationConfirmSubject String @default("Drop-off Reservation Confirmed - {reservationId}")
+  reservationConfirmMessage String @default("Hi {customerName},\n\nYour laundry drop-off reservation has been confirmed!\n\nReservation Details:\n• Reservation ID: {reservationId}\n• Drop-off Date: {dropoffDate}\n• Drop-off Time: {dropoffTime}\n\nPlease bring your laundry to our shop at the scheduled time. We'll weigh your items and provide the total cost when you drop them off.\n\nThank you for choosing North End Laundry Shop!")
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
+}
+
+// NEW: Global shop settings (single source of truth)
+model ShopSettings {
+  id                    String   @id @default("shop-settings")
+  acceptingReservations Boolean  @default(true)
+  updatedBy             String?  // Track which staff member last updated
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
