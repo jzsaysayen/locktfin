@@ -28,7 +28,7 @@ export default async function StaffReservationsPage({
   const currentPage = Number(params.page) || 1;
   const searchQuery = params.search || '';
   const statusFilter = params.status || 'ALL';
-  const activeTab = params.tab || 'pending'; // 'pending', 'confirmed', 'all'
+  const activeTab = params.tab || 'pending'; // 'pending', 'confirmed', 'all', 'flagged'
   const skip = (currentPage - 1) * ITEMS_PER_PAGE;
 
   // Build where clause
@@ -39,6 +39,8 @@ export default async function StaffReservationsPage({
     whereClause.status = 'PENDING';
   } else if (activeTab === 'confirmed') {
     whereClause.status = 'CONFIRMED';
+  } else if (activeTab === 'flagged') {
+    whereClause.isFlagged = true;
   } else if (statusFilter !== 'ALL') {
     whereClause.status = statusFilter as Prisma.ReservationWhereInput['status'];
   }
@@ -80,6 +82,9 @@ export default async function StaffReservationsPage({
   });
   const cancelledCount = await prisma.reservation.count({
     where: { status: 'CANCELLED' },
+  });
+  const flaggedCount = await prisma.reservation.count({
+    where: { isFlagged: true },
   });
 
   // FIXED: Get shop status from ShopSettings instead of UserSettings
@@ -259,6 +264,21 @@ export default async function StaffReservationsPage({
               )}
             </Link>
             <Link
+              href={buildUrl({ tab: 'flagged', page: '1', status: 'ALL' })}
+              className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                activeTab === 'flagged'
+                  ? 'border-red-600 text-red-600'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              Flagged
+              {flaggedCount > 0 && (
+                <span className="ml-2 bg-red-100 text-red-600 px-2 py-0.5 rounded-full text-xs">
+                  {flaggedCount}
+                </span>
+              )}
+            </Link>
+            <Link
               href={buildUrl({ tab: 'all', page: '1' })}
               className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'all'
@@ -336,6 +356,8 @@ export default async function StaffReservationsPage({
                     ? "No pending reservations"
                     : activeTab === 'confirmed'
                     ? "No confirmed reservations"
+                    : activeTab === 'flagged'
+                    ? "No flagged reservations"
                     : "No reservations yet"}
                 </p>
               </div>
@@ -367,6 +389,9 @@ export default async function StaffReservationsPage({
                         )}
                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Created
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Flags / IP
                         </th>
                       </tr>
                     </thead>
@@ -439,6 +464,25 @@ export default async function StaffReservationsPage({
                               day: 'numeric',
                               year: 'numeric',
                             })}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-xs text-gray-600">
+                            <div className="space-y-1">
+                              {reservation.isFlagged && (
+                                <span className="inline-flex px-2 py-0.5 rounded-full bg-red-100 text-red-700 font-semibold">
+                                  Flagged
+                                </span>
+                              )}
+                              {reservation.flagReason && (
+                                <div className="text-[11px] text-gray-700 max-w-xs truncate" title={reservation.flagReason}>
+                                  Reason: {reservation.flagReason}
+                                </div>
+                              )}
+                              {reservation.ipAddress && (
+                                <div className="text-[11px] text-gray-500">
+                                  IP: {reservation.ipAddress}
+                                </div>
+                              )}
+                            </div>
                           </td>
                         </tr>
                       ))}

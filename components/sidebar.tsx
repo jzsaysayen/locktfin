@@ -2,7 +2,7 @@
 'use client';
 
 import { UserButton } from "@stackframe/stack";
-import { BarChart3, Bubbles, Package, Plus, Settings, Calendar } from "lucide-react";
+import { BarChart3, Bubbles, Package, Plus, Settings, Calendar, ShieldAlert } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -21,6 +21,7 @@ export default function Sidebar({
     { name: "Add Order", href: "/staff/addOrder", icon: Plus }, // Fixed: was addOrder
     { name: "Reservations", href: "/staff/reservations", icon: Calendar },
     { name: "Settings", href: "/staff/settings", icon: Settings },
+    { name: "Blacklist", href: "/staff/blacklist", icon: ShieldAlert },
   ];
 
   // Check if path is active (exact match or starts with the path)

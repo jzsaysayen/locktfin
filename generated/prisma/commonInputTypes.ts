@@ -181,11 +181,24 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
 }
 
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type EnumReservationStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.ReservationStatus | Prisma.EnumReservationStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ReservationStatus[] | Prisma.ListEnumReservationStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.ReservationStatus[] | Prisma.ListEnumReservationStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumReservationStatusFilter<$PrismaModel> | $Enums.ReservationStatus
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type EnumReservationStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -198,17 +211,21 @@ export type EnumReservationStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumReservationStatusFilter<$PrismaModel>
 }
 
-export type BoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+export type EnumBlacklistTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlacklistType | Prisma.EnumBlacklistTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBlacklistTypeFilter<$PrismaModel> | $Enums.BlacklistType
 }
 
-export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+export type EnumBlacklistTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlacklistType | Prisma.EnumBlacklistTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBlacklistTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlacklistType
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBlacklistTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBlacklistTypeFilter<$PrismaModel>
 }
 
 export type NestedStringFilter<$PrismaModel = never> = {
@@ -391,11 +408,24 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
 }
 
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type NestedEnumReservationStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.ReservationStatus | Prisma.EnumReservationStatusFieldRefInput<$PrismaModel>
   in?: $Enums.ReservationStatus[] | Prisma.ListEnumReservationStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.ReservationStatus[] | Prisma.ListEnumReservationStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumReservationStatusFilter<$PrismaModel> | $Enums.ReservationStatus
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedEnumReservationStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -408,17 +438,21 @@ export type NestedEnumReservationStatusWithAggregatesFilter<$PrismaModel = never
   _max?: Prisma.NestedEnumReservationStatusFilter<$PrismaModel>
 }
 
-export type NestedBoolFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+export type NestedEnumBlacklistTypeFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlacklistType | Prisma.EnumBlacklistTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBlacklistTypeFilter<$PrismaModel> | $Enums.BlacklistType
 }
 
-export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+export type NestedEnumBlacklistTypeWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.BlacklistType | Prisma.EnumBlacklistTypeFieldRefInput<$PrismaModel>
+  in?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  notIn?: $Enums.BlacklistType[] | Prisma.ListEnumBlacklistTypeFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumBlacklistTypeWithAggregatesFilter<$PrismaModel> | $Enums.BlacklistType
   _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedBoolFilter<$PrismaModel>
-  _max?: Prisma.NestedBoolFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumBlacklistTypeFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumBlacklistTypeFilter<$PrismaModel>
 }
 
 

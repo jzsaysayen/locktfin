@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.0.0
- * Query Engine version: 0c19ccc313cf9911a90d99d2ac2eb0280c76c513
+ * Prisma Client JS version: 7.0.1
+ * Query Engine version: f09f2815f091dbba658cdcd2264306d88bb5bda6
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.0.0",
-  engine: "0c19ccc313cf9911a90d99d2ac2eb0280c76c513"
+  client: "7.0.1",
+  engine: "f09f2815f091dbba658cdcd2264306d88bb5bda6"
 }
 
 /**
@@ -387,6 +387,8 @@ export const ModelName = {
   Order: 'Order',
   OrderStatusHistory: 'OrderStatusHistory',
   Reservation: 'Reservation',
+  ReservationAttempt: 'ReservationAttempt',
+  BlacklistEntry: 'BlacklistEntry',
   UserSettings: 'UserSettings',
   ShopSettings: 'ShopSettings'
 } as const
@@ -404,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "order" | "orderStatusHistory" | "reservation" | "userSettings" | "shopSettings"
+    modelProps: "order" | "orderStatusHistory" | "reservation" | "reservationAttempt" | "blacklistEntry" | "userSettings" | "shopSettings"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -630,6 +632,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReservationAttempt: {
+      payload: Prisma.$ReservationAttemptPayload<ExtArgs>
+      fields: Prisma.ReservationAttemptFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReservationAttemptFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReservationAttemptFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>
+        }
+        findFirst: {
+          args: Prisma.ReservationAttemptFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReservationAttemptFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>
+        }
+        findMany: {
+          args: Prisma.ReservationAttemptFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>[]
+        }
+        create: {
+          args: Prisma.ReservationAttemptCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>
+        }
+        createMany: {
+          args: Prisma.ReservationAttemptCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReservationAttemptCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>[]
+        }
+        delete: {
+          args: Prisma.ReservationAttemptDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>
+        }
+        update: {
+          args: Prisma.ReservationAttemptUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReservationAttemptDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReservationAttemptUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReservationAttemptUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReservationAttemptUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReservationAttemptPayload>
+        }
+        aggregate: {
+          args: Prisma.ReservationAttemptAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReservationAttempt>
+        }
+        groupBy: {
+          args: Prisma.ReservationAttemptGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReservationAttemptGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReservationAttemptCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReservationAttemptCountAggregateOutputType> | number
+        }
+      }
+    }
+    BlacklistEntry: {
+      payload: Prisma.$BlacklistEntryPayload<ExtArgs>
+      fields: Prisma.BlacklistEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BlacklistEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BlacklistEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.BlacklistEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BlacklistEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>
+        }
+        findMany: {
+          args: Prisma.BlacklistEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>[]
+        }
+        create: {
+          args: Prisma.BlacklistEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>
+        }
+        createMany: {
+          args: Prisma.BlacklistEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BlacklistEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.BlacklistEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>
+        }
+        update: {
+          args: Prisma.BlacklistEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.BlacklistEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BlacklistEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BlacklistEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.BlacklistEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlacklistEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.BlacklistEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBlacklistEntry>
+        }
+        groupBy: {
+          args: Prisma.BlacklistEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlacklistEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BlacklistEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlacklistEntryCountAggregateOutputType> | number
+        }
+      }
+    }
     UserSettings: {
       payload: Prisma.$UserSettingsPayload<ExtArgs>
       fields: Prisma.UserSettingsFieldRefs
@@ -852,6 +1002,9 @@ export const ReservationScalarFieldEnum = {
   customerName: 'customerName',
   customerNumber: 'customerNumber',
   customerEmail: 'customerEmail',
+  ipAddress: 'ipAddress',
+  isFlagged: 'isFlagged',
+  flagReason: 'flagReason',
   dropoffDate: 'dropoffDate',
   dropoffTime: 'dropoffTime',
   specialInstructions: 'specialInstructions',
@@ -862,6 +1015,33 @@ export const ReservationScalarFieldEnum = {
 } as const
 
 export type ReservationScalarFieldEnum = (typeof ReservationScalarFieldEnum)[keyof typeof ReservationScalarFieldEnum]
+
+
+export const ReservationAttemptScalarFieldEnum = {
+  id: 'id',
+  customerName: 'customerName',
+  customerNumber: 'customerNumber',
+  customerEmail: 'customerEmail',
+  ipAddress: 'ipAddress',
+  success: 'success',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type ReservationAttemptScalarFieldEnum = (typeof ReservationAttemptScalarFieldEnum)[keyof typeof ReservationAttemptScalarFieldEnum]
+
+
+export const BlacklistEntryScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  value: 'value',
+  reason: 'reason',
+  active: 'active',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type BlacklistEntryScalarFieldEnum = (typeof BlacklistEntryScalarFieldEnum)[keyof typeof BlacklistEntryScalarFieldEnum]
 
 
 export const UserSettingsScalarFieldEnum = {
@@ -978,6 +1158,13 @@ export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
 
 
 /**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
  * Reference to a field of type 'ReservationStatus'
  */
 export type EnumReservationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ReservationStatus'>
@@ -992,9 +1179,16 @@ export type ListEnumReservationStatusFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
- * Reference to a field of type 'Boolean'
+ * Reference to a field of type 'BlacklistType'
  */
-export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+export type EnumBlacklistTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlacklistType'>
+    
+
+
+/**
+ * Reference to a field of type 'BlacklistType[]'
+ */
+export type ListEnumBlacklistTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BlacklistType[]'>
     
 
 
@@ -1093,6 +1287,8 @@ export type GlobalOmitConfig = {
   order?: Prisma.OrderOmit
   orderStatusHistory?: Prisma.OrderStatusHistoryOmit
   reservation?: Prisma.ReservationOmit
+  reservationAttempt?: Prisma.ReservationAttemptOmit
+  blacklistEntry?: Prisma.BlacklistEntryOmit
   userSettings?: Prisma.UserSettingsOmit
   shopSettings?: Prisma.ShopSettingsOmit
 }

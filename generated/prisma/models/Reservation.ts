@@ -30,6 +30,9 @@ export type ReservationMinAggregateOutputType = {
   customerName: string | null
   customerNumber: string | null
   customerEmail: string | null
+  ipAddress: string | null
+  isFlagged: boolean | null
+  flagReason: string | null
   dropoffDate: Date | null
   dropoffTime: string | null
   specialInstructions: string | null
@@ -45,6 +48,9 @@ export type ReservationMaxAggregateOutputType = {
   customerName: string | null
   customerNumber: string | null
   customerEmail: string | null
+  ipAddress: string | null
+  isFlagged: boolean | null
+  flagReason: string | null
   dropoffDate: Date | null
   dropoffTime: string | null
   specialInstructions: string | null
@@ -60,6 +66,9 @@ export type ReservationCountAggregateOutputType = {
   customerName: number
   customerNumber: number
   customerEmail: number
+  ipAddress: number
+  isFlagged: number
+  flagReason: number
   dropoffDate: number
   dropoffTime: number
   specialInstructions: number
@@ -77,6 +86,9 @@ export type ReservationMinAggregateInputType = {
   customerName?: true
   customerNumber?: true
   customerEmail?: true
+  ipAddress?: true
+  isFlagged?: true
+  flagReason?: true
   dropoffDate?: true
   dropoffTime?: true
   specialInstructions?: true
@@ -92,6 +104,9 @@ export type ReservationMaxAggregateInputType = {
   customerName?: true
   customerNumber?: true
   customerEmail?: true
+  ipAddress?: true
+  isFlagged?: true
+  flagReason?: true
   dropoffDate?: true
   dropoffTime?: true
   specialInstructions?: true
@@ -107,6 +122,9 @@ export type ReservationCountAggregateInputType = {
   customerName?: true
   customerNumber?: true
   customerEmail?: true
+  ipAddress?: true
+  isFlagged?: true
+  flagReason?: true
   dropoffDate?: true
   dropoffTime?: true
   specialInstructions?: true
@@ -195,6 +213,9 @@ export type ReservationGroupByOutputType = {
   customerName: string
   customerNumber: string
   customerEmail: string
+  ipAddress: string | null
+  isFlagged: boolean
+  flagReason: string | null
   dropoffDate: Date
   dropoffTime: string
   specialInstructions: string | null
@@ -231,6 +252,9 @@ export type ReservationWhereInput = {
   customerName?: Prisma.StringFilter<"Reservation"> | string
   customerNumber?: Prisma.StringFilter<"Reservation"> | string
   customerEmail?: Prisma.StringFilter<"Reservation"> | string
+  ipAddress?: Prisma.StringNullableFilter<"Reservation"> | string | null
+  isFlagged?: Prisma.BoolFilter<"Reservation"> | boolean
+  flagReason?: Prisma.StringNullableFilter<"Reservation"> | string | null
   dropoffDate?: Prisma.DateTimeFilter<"Reservation"> | Date | string
   dropoffTime?: Prisma.StringFilter<"Reservation"> | string
   specialInstructions?: Prisma.StringNullableFilter<"Reservation"> | string | null
@@ -246,6 +270,9 @@ export type ReservationOrderByWithRelationInput = {
   customerName?: Prisma.SortOrder
   customerNumber?: Prisma.SortOrder
   customerEmail?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFlagged?: Prisma.SortOrder
+  flagReason?: Prisma.SortOrderInput | Prisma.SortOrder
   dropoffDate?: Prisma.SortOrder
   dropoffTime?: Prisma.SortOrder
   specialInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -265,6 +292,9 @@ export type ReservationWhereUniqueInput = Prisma.AtLeast<{
   customerName?: Prisma.StringFilter<"Reservation"> | string
   customerNumber?: Prisma.StringFilter<"Reservation"> | string
   customerEmail?: Prisma.StringFilter<"Reservation"> | string
+  ipAddress?: Prisma.StringNullableFilter<"Reservation"> | string | null
+  isFlagged?: Prisma.BoolFilter<"Reservation"> | boolean
+  flagReason?: Prisma.StringNullableFilter<"Reservation"> | string | null
   dropoffDate?: Prisma.DateTimeFilter<"Reservation"> | Date | string
   dropoffTime?: Prisma.StringFilter<"Reservation"> | string
   specialInstructions?: Prisma.StringNullableFilter<"Reservation"> | string | null
@@ -279,6 +309,9 @@ export type ReservationOrderByWithAggregationInput = {
   customerName?: Prisma.SortOrder
   customerNumber?: Prisma.SortOrder
   customerEmail?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  isFlagged?: Prisma.SortOrder
+  flagReason?: Prisma.SortOrderInput | Prisma.SortOrder
   dropoffDate?: Prisma.SortOrder
   dropoffTime?: Prisma.SortOrder
   specialInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -300,6 +333,9 @@ export type ReservationScalarWhereWithAggregatesInput = {
   customerName?: Prisma.StringWithAggregatesFilter<"Reservation"> | string
   customerNumber?: Prisma.StringWithAggregatesFilter<"Reservation"> | string
   customerEmail?: Prisma.StringWithAggregatesFilter<"Reservation"> | string
+  ipAddress?: Prisma.StringNullableWithAggregatesFilter<"Reservation"> | string | null
+  isFlagged?: Prisma.BoolWithAggregatesFilter<"Reservation"> | boolean
+  flagReason?: Prisma.StringNullableWithAggregatesFilter<"Reservation"> | string | null
   dropoffDate?: Prisma.DateTimeWithAggregatesFilter<"Reservation"> | Date | string
   dropoffTime?: Prisma.StringWithAggregatesFilter<"Reservation"> | string
   specialInstructions?: Prisma.StringNullableWithAggregatesFilter<"Reservation"> | string | null
@@ -315,6 +351,9 @@ export type ReservationCreateInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
+  ipAddress?: string | null
+  isFlagged?: boolean
+  flagReason?: string | null
   dropoffDate: Date | string
   dropoffTime: string
   specialInstructions?: string | null
@@ -330,6 +369,9 @@ export type ReservationUncheckedCreateInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
+  ipAddress?: string | null
+  isFlagged?: boolean
+  flagReason?: string | null
   dropoffDate: Date | string
   dropoffTime: string
   specialInstructions?: string | null
@@ -345,6 +387,9 @@ export type ReservationUpdateInput = {
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  flagReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dropoffDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   specialInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -360,6 +405,9 @@ export type ReservationUncheckedUpdateInput = {
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  flagReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dropoffDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   specialInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -375,6 +423,9 @@ export type ReservationCreateManyInput = {
   customerName: string
   customerNumber: string
   customerEmail: string
+  ipAddress?: string | null
+  isFlagged?: boolean
+  flagReason?: string | null
   dropoffDate: Date | string
   dropoffTime: string
   specialInstructions?: string | null
@@ -390,6 +441,9 @@ export type ReservationUpdateManyMutationInput = {
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  flagReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dropoffDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   specialInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -405,6 +459,9 @@ export type ReservationUncheckedUpdateManyInput = {
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerNumber?: Prisma.StringFieldUpdateOperationsInput | string
   customerEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  ipAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isFlagged?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  flagReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   dropoffDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dropoffTime?: Prisma.StringFieldUpdateOperationsInput | string
   specialInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -420,6 +477,9 @@ export type ReservationCountOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerNumber?: Prisma.SortOrder
   customerEmail?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  isFlagged?: Prisma.SortOrder
+  flagReason?: Prisma.SortOrder
   dropoffDate?: Prisma.SortOrder
   dropoffTime?: Prisma.SortOrder
   specialInstructions?: Prisma.SortOrder
@@ -435,6 +495,9 @@ export type ReservationMaxOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerNumber?: Prisma.SortOrder
   customerEmail?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  isFlagged?: Prisma.SortOrder
+  flagReason?: Prisma.SortOrder
   dropoffDate?: Prisma.SortOrder
   dropoffTime?: Prisma.SortOrder
   specialInstructions?: Prisma.SortOrder
@@ -450,6 +513,9 @@ export type ReservationMinOrderByAggregateInput = {
   customerName?: Prisma.SortOrder
   customerNumber?: Prisma.SortOrder
   customerEmail?: Prisma.SortOrder
+  ipAddress?: Prisma.SortOrder
+  isFlagged?: Prisma.SortOrder
+  flagReason?: Prisma.SortOrder
   dropoffDate?: Prisma.SortOrder
   dropoffTime?: Prisma.SortOrder
   specialInstructions?: Prisma.SortOrder
@@ -457,6 +523,10 @@ export type ReservationMinOrderByAggregateInput = {
   orderId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
 }
 
 export type EnumReservationStatusFieldUpdateOperationsInput = {
@@ -471,6 +541,9 @@ export type ReservationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   customerName?: boolean
   customerNumber?: boolean
   customerEmail?: boolean
+  ipAddress?: boolean
+  isFlagged?: boolean
+  flagReason?: boolean
   dropoffDate?: boolean
   dropoffTime?: boolean
   specialInstructions?: boolean
@@ -486,6 +559,9 @@ export type ReservationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   customerName?: boolean
   customerNumber?: boolean
   customerEmail?: boolean
+  ipAddress?: boolean
+  isFlagged?: boolean
+  flagReason?: boolean
   dropoffDate?: boolean
   dropoffTime?: boolean
   specialInstructions?: boolean
@@ -501,6 +577,9 @@ export type ReservationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   customerName?: boolean
   customerNumber?: boolean
   customerEmail?: boolean
+  ipAddress?: boolean
+  isFlagged?: boolean
+  flagReason?: boolean
   dropoffDate?: boolean
   dropoffTime?: boolean
   specialInstructions?: boolean
@@ -516,6 +595,9 @@ export type ReservationSelectScalar = {
   customerName?: boolean
   customerNumber?: boolean
   customerEmail?: boolean
+  ipAddress?: boolean
+  isFlagged?: boolean
+  flagReason?: boolean
   dropoffDate?: boolean
   dropoffTime?: boolean
   specialInstructions?: boolean
@@ -525,7 +607,7 @@ export type ReservationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ReservationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reservationId" | "customerName" | "customerNumber" | "customerEmail" | "dropoffDate" | "dropoffTime" | "specialInstructions" | "status" | "orderId" | "createdAt" | "updatedAt", ExtArgs["result"]["reservation"]>
+export type ReservationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "reservationId" | "customerName" | "customerNumber" | "customerEmail" | "ipAddress" | "isFlagged" | "flagReason" | "dropoffDate" | "dropoffTime" | "specialInstructions" | "status" | "orderId" | "createdAt" | "updatedAt", ExtArgs["result"]["reservation"]>
 
 export type $ReservationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Reservation"
@@ -536,6 +618,9 @@ export type $ReservationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     customerName: string
     customerNumber: string
     customerEmail: string
+    ipAddress: string | null
+    isFlagged: boolean
+    flagReason: string | null
     dropoffDate: Date
     dropoffTime: string
     specialInstructions: string | null
@@ -971,6 +1056,9 @@ export interface ReservationFieldRefs {
   readonly customerName: Prisma.FieldRef<"Reservation", 'String'>
   readonly customerNumber: Prisma.FieldRef<"Reservation", 'String'>
   readonly customerEmail: Prisma.FieldRef<"Reservation", 'String'>
+  readonly ipAddress: Prisma.FieldRef<"Reservation", 'String'>
+  readonly isFlagged: Prisma.FieldRef<"Reservation", 'Boolean'>
+  readonly flagReason: Prisma.FieldRef<"Reservation", 'String'>
   readonly dropoffDate: Prisma.FieldRef<"Reservation", 'DateTime'>
   readonly dropoffTime: Prisma.FieldRef<"Reservation", 'String'>
   readonly specialInstructions: Prisma.FieldRef<"Reservation", 'String'>

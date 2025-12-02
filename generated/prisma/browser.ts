@@ -33,6 +33,16 @@ export type OrderStatusHistory = Prisma.OrderStatusHistoryModel
  */
 export type Reservation = Prisma.ReservationModel
 /**
+ * Model ReservationAttempt
+ * 
+ */
+export type ReservationAttempt = Prisma.ReservationAttemptModel
+/**
+ * Model BlacklistEntry
+ * 
+ */
+export type BlacklistEntry = Prisma.BlacklistEntryModel
+/**
  * Model UserSettings
  * 
  */

@@ -54,6 +54,8 @@ export const ModelName = {
   Order: 'Order',
   OrderStatusHistory: 'OrderStatusHistory',
   Reservation: 'Reservation',
+  ReservationAttempt: 'ReservationAttempt',
+  BlacklistEntry: 'BlacklistEntry',
   UserSettings: 'UserSettings',
   ShopSettings: 'ShopSettings'
 } as const
@@ -109,6 +111,9 @@ export const ReservationScalarFieldEnum = {
   customerName: 'customerName',
   customerNumber: 'customerNumber',
   customerEmail: 'customerEmail',
+  ipAddress: 'ipAddress',
+  isFlagged: 'isFlagged',
+  flagReason: 'flagReason',
   dropoffDate: 'dropoffDate',
   dropoffTime: 'dropoffTime',
   specialInstructions: 'specialInstructions',
@@ -119,6 +124,33 @@ export const ReservationScalarFieldEnum = {
 } as const
 
 export type ReservationScalarFieldEnum = (typeof ReservationScalarFieldEnum)[keyof typeof ReservationScalarFieldEnum]
+
+
+export const ReservationAttemptScalarFieldEnum = {
+  id: 'id',
+  customerName: 'customerName',
+  customerNumber: 'customerNumber',
+  customerEmail: 'customerEmail',
+  ipAddress: 'ipAddress',
+  success: 'success',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type ReservationAttemptScalarFieldEnum = (typeof ReservationAttemptScalarFieldEnum)[keyof typeof ReservationAttemptScalarFieldEnum]
+
+
+export const BlacklistEntryScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  value: 'value',
+  reason: 'reason',
+  active: 'active',
+  createdBy: 'createdBy',
+  createdAt: 'createdAt'
+} as const
+
+export type BlacklistEntryScalarFieldEnum = (typeof BlacklistEntryScalarFieldEnum)[keyof typeof BlacklistEntryScalarFieldEnum]
 
 
 export const UserSettingsScalarFieldEnum = {

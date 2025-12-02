@@ -27,3 +27,12 @@ export const ReservationStatus = {
 } as const
 
 export type ReservationStatus = (typeof ReservationStatus)[keyof typeof ReservationStatus]
+
+
+export const BlacklistType = {
+  EMAIL: 'EMAIL',
+  PHONE: 'PHONE',
+  IP: 'IP'
+} as const
+
+export type BlacklistType = (typeof BlacklistType)[keyof typeof BlacklistType]

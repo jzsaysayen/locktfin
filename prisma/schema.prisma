@@ -69,6 +69,9 @@ model Reservation {
   customerName    String
   customerNumber  String
   customerEmail   String
+  ipAddress       String?
+  isFlagged       Boolean           @default(false)
+  flagReason      String?
   
   // Reservation details (drop-off only)
   dropoffDate     DateTime          // Scheduled drop-off date
@@ -85,8 +88,48 @@ model Reservation {
 
   @@index([reservationId])
   @@index([customerEmail])
+  @@index([customerNumber])
+  @@index([ipAddress])
+  @@index([isFlagged])
   @@index([status, dropoffDate])
   @@index([dropoffDate])
+}
+
+// Track all reservation attempts (successful or blocked) for auditing & abuse detection
+model ReservationAttempt {
+  id             String   @id @default(cuid())
+  customerName   String?
+  customerNumber String?
+  customerEmail  String?
+  ipAddress      String?
+  success        Boolean  // whether a reservation record was actually created
+  reason         String?  // e.g. RATE_LIMIT, DUPLICATE_SUBMISSION, BLACKLIST, OK
+
+  createdAt DateTime @default(now())
+
+  @@index([customerEmail, createdAt])
+  @@index([customerNumber, createdAt])
+  @@index([ipAddress, createdAt])
+}
+
+// Optional blacklist system – staff can maintain entries via Prisma Studio or a future UI
+enum BlacklistType {
+  EMAIL
+  PHONE
+  IP
+}
+
+model BlacklistEntry {
+  id        String        @id @default(cuid())
+  type      BlacklistType
+  value     String
+  reason    String?
+  active    Boolean       @default(true)
+  createdBy String?
+
+  createdAt DateTime @default(now())
+
+  @@unique([type, value])
 }
 
 model UserSettings {
